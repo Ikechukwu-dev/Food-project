@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Bites-Food Shop</title>
+</head>
+<body>
+    <header>
+        <h1>Delicious Bites</h1>
+        <div id="search-bar">
+            <input type="text" id="search" placeholder="Search for food...">
+            <button onclick="searchFood()">Search</button>
+        </div>
+        <div id="icons">
+            <a href="./food shop.html" style="color: white; text-decoration: none;">Home</a>
+            <div id="cart-icon" onclick="window.location.href='#checkout'">🛒 <span id="cart-count">0</span></div>
+        </div>
+        <div id="cart-items">
+            <h4>Shopping Cart</h4>
+            <ul id="cart-list"></ul>
+            <p>Total: $<span id="cart-total">0.00</span></p>
+        </div>
+        <div id="user-account">
+            <div id="user-info" style="display: none;">
+                <span id="welcome-message">Welcome, <span id="user-name"></span>!</span>
+                <button onclick="logout()" id="logout">Logout</button>
+            </div>
+            <div id="login-form">
+                <input type="text" id="username-input" placeholder="Enter your name">
+                <button onclick="login()">Login</button>
+            </div>
+        </div>
+        
+        <div id="favorites-section" style="display: none;">
+            <h4>Your Favorites</h4>
+            <ul id="favorites-list"></ul>
+        </div>     
+    </header>
+    <main>  
+        <header id="selector">
+            <section id="accessibility-controls">
+                <h2 id="accessable">Accessibility Options</h2>
+                <button onclick="increaseTextSize()">A+</button>
+                <button onclick="decreaseTextSize()">A-</button>
+                <button onclick="toggleContrast()">Toggle High Contrast</button>
+            </section>
+                        
+        </header>        
+        <div class="content">
+            <!-- Example Food Items -->
+            <div class="food-item" id="food1">
+                <img src="https://media.istockphoto.com/id/1412974054/vector/spicy-pepperoni-pizza-icon.jpg?s=612x612&w=0&k=20&c=rBy2AKSS1FF7GtV8QbXYW4bMEpEa1JLIvSDe7IM37R8=" 
+                alt="Pizza">
+                <h3>Pizza</h3>
+                <p>$12.00</p>
+                <button onclick="addToCart('Pizza', 12.00)">Add to Cart</button>
+                <button onclick="addFavorite('Pizza')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+                
+            </div>
+
+            <div class="food-item" id="food2">
+                <img src="https://media.istockphoto.com/id/1689297274/vector/3d-burger-icon-3d-rendering-of-delicious-cheeseburger-fast-food-3d-realistic-render-vector.jpg?s=612x612&w=0&k=20&c=PR_4oODkxizl26tBAcy8-AqgCyLxXRCIB1LuzBLWQTU=">
+                <h3>Burger</h3>
+                <p>$8.00</p>
+                <button onclick="addToCart('Burger', 8.00)">Add to Cart</button>
+                <button onclick="addFavorite('Burger')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+
+            <div class="food-item" id="food3">
+                <img src="https://media.istockphoto.com/id/1309206894/vector/grilled-salmon-fillet-fish-on-plate-cooked-tuna-steak-with-lemon-and-lettuce-leaves-cartoon.jpg?s=612x612&w=0&k=20&c=WBGuxeqPRbpNLiHbuKm9eLzlwKPw6X884IRoXFePeBQ=" 
+                alt="Sushi">
+                <h3>Sushi</h3>
+                <p>$15.00</p>
+                <button onclick="addToCart('Sushi', 15.00)">Add to Cart</button>
+                <button onclick="addFavorite('Sushi')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+
+            <div class="food-item" id="food4">
+                <img src="https://media.istockphoto.com/id/1138018663/vector/spaghetti-with-meatballs.jpg?s=612x612&w=0&k=20&c=uHme7NWN04kBuSJBXUugLQATEz6FerMDKEzX0zhOoWA=" 
+                alt="Pasta">
+                <h3>Pasta</h3>
+                <p>$10.00</p>
+                <button onclick="addToCart('Pasta', 10.00)">Add to Cart</button>
+                <button onclick="addFavorite('Pasta')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            <div class="food-item" id="food5">
+                <img src="https://media.istockphoto.com/id/1183041351/vector/realistic-3d-detailed-salad-fresh-vegetables-in-transparent-glass-dish-vector.jpg?s=612x612&w=0&k=20&c=oMzLrp7R4xvZ9fk3rNmj6LCSE2ESY4KDFDUwdEzdm_E=" 
+                alt="Salad">
+                <h3>Salad</h3>
+                <p>$7.00</p>
+                <button onclick="addToCart('Salad', 7.00)">Add to Cart</button>
+                <button onclick="addFavorite('Salad')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+
+            <div class="food-item" id="food6">
+                <img src="https://media.istockphoto.com/id/1297936036/vector/illustration-of-traditional-mexican-taco.jpg?s=612x612&w=0&k=20&c=WZnZfhvQ1paYF-cfT0ziNN4Nw8Zz6O3xn7EiAvNyovw=" 
+                alt="Tacos">
+                <h3>Tacos</h3>
+                <p>$9.00</p>
+                <button onclick="addToCart('Tacos', 9.00)">Add to Cart</button>
+                <button onclick="addFavorite('Tacos')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            <div class="food-item" id="food7">
+            <img src="https://media.istockphoto.com/id/1403793637/vector/sweet-traditional-apple-pie-with-apples-icon-vector.jpg?s=612x612&w=0&k=20&c=RIKr_v5ScExpHFN1Z7cipN-p5S2UqcD3c1lNDOW0PA8=" 
+            alt="Pie">
+            <h3>Pie</h3>
+            <p>$10.00</p>
+            <button onclick="addToCart('Pie', 9.00)">Add to Cart</button>
+            <button onclick="addFavorite('Pie')">Add to Favorites</button>
+            <div class="rating">
+                <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                <span class="rating-value">0</span>/5
+            </div>
+            <div class="reviews">
+                <h4>User Reviews</h4>
+                <ul class="review-list">
+                    <!-- Reviews will be inserted here -->
+                </ul>
+                <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                <button onclick="submitReview(this)">Submit Review</button>
+            </div>
+        </div>
+        <div class="food-item" id="food9">
+        <img src="https://media.istockphoto.com/id/1283762573/vector/burrito-icon-on-transparent-background.jpg?s=612x612&w=0&k=20&c=iG_zQRdtj7ELD07NjeJnN8xvbNtz_gjVUQXF7ktuI8o="
+        alt="burritos">
+        <h3>Burritos</h3>
+        <p>$18.00</p>
+        <button onclick="addToCart('Burritos', 18.00)">Add to Cart</button>
+        <button onclick="addFavorite('Burritos')">Add to Favorites</button>
+        <div class="rating">
+            <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+            <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+            <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+            <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+            <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+            <span class="rating-value">0</span>/5
+        </div>
+        <div class="reviews">
+            <h4>User Reviews</h4>
+            <ul class="review-list">
+                <!-- Reviews will be inserted here -->
+            </ul>
+            <textarea placeholder="Leave a review..." class="review-input"></textarea>
+            <button onclick="submitReview(this)">Submit Review</button>
+        </div>    
+    </div>
+        <div class="food-item" id="food10">
+            <img src="https://media.istockphoto.com/id/1326580456/vector/vector-chocolate-bar-half-open.jpg?s=612x612&w=0&k=20&c=EIZTk-5oIt7Q13_QCyYoS81C15XfAWKR8PgRVdFOshU="
+            alt="chocolate bar">
+            <h3>Chocolate Bar</h3>
+            <p>$13.00</p>
+            <button onclick="addToCart('Chocolate Bar', 13.00)">Add to Cart</button>
+            <button onclick="addFavorite('Chocolate Bar')">Add to Favorites</button>
+            <div class="rating">
+                <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                <span class="rating-value">0</span>/5
+            </div>
+            <div class="reviews">
+                <h4>User Reviews</h4>
+                <ul class="review-list">
+                    <!-- Reviews will be inserted here -->
+                </ul>
+                <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                <button onclick="submitReview(this)">Submit Review</button>
+            </div>    
+        </div>
+            
+        <!-- Add 200 more Food Items -->
+            <div class="food-item hidden-food-item" id="food7">
+                <img src="https://media.istockphoto.com/id/1181853605/vector/cut-of-meat-vector-icon-isolated-fresh-raw-rib-eye-steaks-illustration.jpg?s=612x612&w=0&k=20&c=Tu3aHWAzOuLZAy6qmDAyt7VDpibP9lg6fAXeIiMVVak=" 
+                alt="Steak">
+                <h3>Steak</h3>
+                <p>$20.00</p>
+                <button onclick="addToCart('Steak', 20.00)">Add to Cart</button>
+                <button onclick="addFavorite('Steak')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            <div class="food-item hidden-food-item" id="food8">
+                <img src="https://media.istockphoto.com/id/1396347172/vector/chicken-drumstick-icon-vector-design.jpg?s=612x612&w=0&k=20&c=g2eUcQl9Ic-WlzhgC1fix9rdeIVIUteoCwYaIo8CnNA=" 
+                alt="Fried Chicken">
+                <h3>Fried Chicken</h3>
+                <p>$10.00</p>
+                <button onclick="addToCart('Fried Chicken', 10.00)">Add to Cart</button>
+                <button onclick="addFavorite('Fried Chicken')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            <div class="food-item hidden-food-item" id="food9">
+                <img src="https://media.istockphoto.com/id/980474978/vector/strawberry-ice-cream-cone-flat-design-dessert-icon.jpg?s=612x612&w=0&k=20&c=kY7enczOhemyXVu5Jp2pmVbv5SfQPj03zcqb27fJv4I=" 
+                alt="Ice Cream">
+                <h3>Ice Cream</h3>
+                <p>$5.00</p>
+                <button onclick="addToCart('Ice Cream', 5.00)">Add to Cart</button>
+                <button onclick="addFavorite('Ice Cream')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            <div class="food-item hidden-food-item" id="food10">
+                <img src="https://media.istockphoto.com/id/1364176421/vector/vector-plain-noodles-illustration-noodles-in-white-bowl-isolated.jpg?s=612x612&w=0&k=20&c=nlkE_GpIucBBdpxuMQIgnhWo1Z0AwD8mhszk7ft32zQ=" 
+                alt="Spaghetti">
+                <h3>Spaghetti</h3>
+                <p>$11.00</p>
+                <button onclick="addToCart('Spaghetti', 11.00)">Add to Cart</button>
+                <button onclick="addFavorite('Spaghetti')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            <div class="food-item hidden-food-item" id="food11">
+                <img src="https://media.istockphoto.com/id/812133762/vector/hot-dog-with-mustard.jpg?s=612x612&w=0&k=20&c=D2JsxX8OVELbex4yfRw2nX9DNOKxuHbnPLi1Pgs8QkU=" 
+                alt="Hot Dog">
+                <h3>Hot Dog</h3>
+                <p>$22.00</p>
+                <button onclick="addToCart('Hot Dog', 22.00)">Add to Cart</button>
+                <button onclick="addFavorite('Hot Dog')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            <div class="food-item hidden-food-item" id="food12">
+                <img src="https://media.istockphoto.com/id/1136232865/vector/berry-cake-piece.jpg?s=612x612&w=0&k=20&c=2Fk_wAid1HROigSP7pD75Tb9zBTAal__eFp-ev9uMlY=" 
+                alt="Cheesecake">
+                <h3>Cheesecake</h3>
+                <p>$6.00</p>
+                <button onclick="addToCart('Cheesecake', 6.00)">Add to Cart</button>
+                <button onclick="addFavorite('Cheesecake')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            <div class="food-item hidden-food-item" id="food13">
+                <img src="https://media.istockphoto.com/id/1494732391/vector/lobster.jpg?s=612x612&w=0&k=20&c=yGDcANCdehWZLwdrP5C3dPEAArNqoOz67t8_uyHO_pc=" 
+                alt="Lobster">
+                <h3>Lobster</h3>
+                <p>$35.00</p>
+                <button onclick="addToCart('Lobster', 35.00)">Add to Cart</button>
+                <button onclick="addFavorite('Lobster')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            <div class="food-item hidden-food-item" id="food15">
+                <img src="https://media.istockphoto.com/id/1296060228/vector/pancakes-with-whipped-cream-or-butter-overhead-icon.jpg?s=612x612&w=0&k=20&c=ewdTFKFrkKvkHtEzW9YgIBOMl53l7r_5msYvhBAlebQ=" 
+                alt="Pancakes">
+                <h3>Pancakes</h3>
+                <p>$8.00</p>
+                <button onclick="addToCart('Pancakes', 8.00)">Add to Cart</button>
+                <button onclick="addFavorite('Pancakes')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            <div class="food-item hidden-food-item" id="food16">
+                <img src="https://media.istockphoto.com/id/1273890643/vector/burrito-mexican-food-tortilla-wrap-meat-and-vegetables-vector-cartoon-flat-icon-isolated-on.jpg?s=612x612&w=0&k=20&c=5IGV5unnhXDUW3i1LCTqn9jX9oAvXArAyuz8dQ5HHrU=" 
+                alt="Sharwarma">
+                <h3>Sharwrma</h3>
+                <p>$4.00</p>
+                <button onclick="addToCart('sharwarma', 4.00)">Add to Cart</button>
+                <button onclick="addFavorite('Sharwarma')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+            
+           <div class="food-item hidden-food-item" id="food17">
+                <img src="https://media.istockphoto.com/id/1883521341/vector/rice-dish-with-vegetables-a-plate-with-fried-rice.jpg?s=612x612&w=0&k=20&c=psSFA4OAvFRsJOMHzMJ8W1Rracu9rvIVEX7Jtj7xdQE=" 
+                alt="Jollof Rice">
+                <h3>Jollof Rice</h3>
+                <p>$8.00</p>
+                <button onclick="addToCart('jollof rice', 8.00)">Add to Cart</button>
+                <button onclick="addFavorite('Jollof rice')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>
+            </div>
+    <div class="food-item hidden-food-item" id="food18">
+        <img src="https://media.istockphoto.com/id/931419844/vector/vector-popcorn-icon-on-a-white-background.jpg?s=612x612&w=0&k=20&c=iC_tk4oZ0v90qTmLP8j64hUAiGYgjOHWd-57rFHry_k=" 
+        alt="Pop corn">
+        <h3>Pop corn</h3>
+        <p>$3.00</p>
+        <button onclick="addToCart('pop corn', 3.00)">Add to Cart</button>
+        <button onclick="addFavorite('Pop corn')">Add to Favorites</button>
+        <div class="rating">
+            <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+            <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+            <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+            <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+            <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+            <span class="rating-value">0</span>/5
+        </div>
+        <div class="reviews">
+            <h4>User Reviews</h4>
+            <ul class="review-list">
+                <!-- Reviews will be inserted here -->
+            </ul>
+            <textarea placeholder="Leave a review..." class="review-input"></textarea>
+            <button onclick="submitReview(this)">Submit Review</button>
+        </div>    
+    </div>
+        <div class="food-item hidden-food-item" id="food19">
+            <img src="https://media.istockphoto.com/id/980473104/vector/cupcake-flat-design-dessert-icon.jpg?s=612x612&w=0&k=20&c=h8Hs0cQ4dT25Rfc3Fuz7ekhZ1Tu6HnTK8I7Z1x2Uwgs=" 
+            alt="Cup cake">
+            <h3>Cup cake</h3>
+            <p>$5.00</p>
+            <button onclick="addToCart('cup cake', 5.00)">Add to Cart</button>
+            <button onclick="addFavorite('Cupcake')">Add to Favorites</button>
+            <div class="rating">
+                <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                <span class="rating-value">0</span>/5
+            </div>
+            <div class="reviews">
+                <h4>User Reviews</h4>
+                <ul class="review-list">
+                    <!-- Reviews will be inserted here -->
+                </ul>
+                <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                <button onclick="submitReview(this)">Submit Review</button>
+            </div>    
+        </div>
+            <div class="food-item hidden-food-item" id="food20">
+                <img src="https://media.istockphoto.com/id/1144253396/vector/cookie-flat-design.jpg?s=612x612&w=0&k=20&c=rsWQZzA3K3iPnKBn7mLXRZY1SzDKzeR8EU4ebN-t06Q=" 
+                alt="Cookies">
+                <h3>Cookies</h3>
+                <p>$5.00</p>
+                <button onclick="addToCart('cookies', 5.00)">Add to Cart</button>
+                <button onclick="addFavorite('Cookies')">Add to Favorites</button>
+                <div class="rating">
+                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                    <span class="rating-value">0</span>/5
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <ul class="review-list">
+                        <!-- Reviews will be inserted here -->
+                    </ul>
+                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                    <button onclick="submitReview(this)">Submit Review</button>
+                </div>    
+            </div>
+                <div class="food-item hidden-food-item" id="food20">
+                    <img src="https://media.istockphoto.com/id/1500937958/vector/filled-donut-icon.jpg?s=612x612&w=0&k=20&c=9NeyApZ1YxgxskHFIyAOw62EKmnhce51yJ_DiUg9ljU=" 
+                    alt="doughnut">
+                    <h3>Doughnut</h3>
+                    <p>$2.00</p>
+                    <button onclick="addToCart('doughnut', 2.00)">Add to Cart</button>
+                    <button onclick="addFavorite('Doughnut')">Add to Favorites</button>
+                    <div class="rating">
+                        <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                        <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                        <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                        <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                        <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                        <span class="rating-value">0</span>/5
+                    </div>
+                    <div class="reviews">
+                        <h4>User Reviews</h4>
+                        <ul class="review-list">
+                            <!-- Reviews will be inserted here -->
+                        </ul>
+                        <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                        <button onclick="submitReview(this)">Submit Review</button>
+                    </div>    
+                </div>
+                    <div class="food-item hidden-food-item" id="food20">
+                        <img src="https://media.istockphoto.com/id/1358966473/vector/waffle-vector-illustration.jpg?s=612x612&w=0&k=20&c=CHrl966kS63KrQbcnXfTRA55fIYZo6hblDgkHWWXqAY=" 
+                        alt="waffles">
+                        <h3>Waffles</h3>
+                        <p>$11.00</p>
+                        <button onclick="addToCart('waffles', 11.00)">Add to Cart</button>
+                        <button onclick="addFavorite('Waffles')">Add to Favorites</button>
+                        <div class="rating">
+                            <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                            <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                            <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                            <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                            <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                            <span class="rating-value">0</span>/5
+                        </div>
+                        <div class="reviews">
+                            <h4>User Reviews</h4>
+                            <ul class="review-list">
+                                <!-- Reviews will be inserted here -->
+                            </ul>
+                            <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                            <button onclick="submitReview(this)">Submit Review</button>
+                        </div>    
+                    </div>
+                        <div class="food-item hidden-food-item" id="food20">
+                            <img src="https://media.istockphoto.com/id/861305370/vector/fried-chicken-legs-wings-french-fries-cartoon-flat-style-vector.jpg?s=612x612&w=0&k=20&c=rbphdWD9pDK2PPSpv4Ac0Zh7xwdQFe-769CJcHREziY=" 
+                            alt="chicken and chips">
+                            <h3>Chicken and Chips</h3>
+                            <p>$19.00</p>
+                            <button onclick="addToCart('chicken and chips', 19.00)">Add to Cart</button>
+                            <button onclick="addFavorite('Chicken and chips')">Add to Favorites</button>
+                            <div class="rating">
+                                <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                                <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                                <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                                <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                                <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                                <span class="rating-value">0</span>/5
+                            </div>
+                            <div class="reviews">
+                                <h4>User Reviews</h4>
+                                <ul class="review-list">
+                                    <!-- Reviews will be inserted here -->
+                                </ul>
+                                <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                                <button onclick="submitReview(this)">Submit Review</button>
+                            </div>    
+                        </div>
+                            <div class="food-item hidden-food-item" id="food20">
+                                <img src="https://media.istockphoto.com/id/1181843270/vector/sandwich-vector-icon-isolated-delicious-ham-and-cheese-sandwich-emoji-emoticon-illustration.jpg?s=612x612&w=0&k=20&c=RqwWhrdh2hylYOVS6_-RBZ7DYGEkKqOKvPNtZ8hQHbg=" 
+                                alt="sandwitch">
+                                <h3>Sandwitch</h3>
+                                <p>$15.00</p>
+                                <button onclick="addToCart('sandwitch', 15.00)">Add to Cart</button>
+                                <button onclick="addFavorite('Sandwitch')">Add to Favorites</button>
+                                <div class="rating">
+                                    <span class="star" onclick="rateItem(this, 1)">&#9733;</span>
+                                    <span class="star" onclick="rateItem(this, 2)">&#9733;</span>
+                                    <span class="star" onclick="rateItem(this, 3)">&#9733;</span>
+                                    <span class="star" onclick="rateItem(this, 4)">&#9733;</span>
+                                    <span class="star" onclick="rateItem(this, 5)">&#9733;</span>
+                                    <span class="rating-value">0</span>/5
+                                </div>
+                                <div class="reviews">
+                                    <h4>User Reviews</h4>
+                                    <ul class="review-list">
+                                        <!-- Reviews will be inserted here -->
+                                    </ul>
+                                    <textarea placeholder="Leave a review..." class="review-input"></textarea>
+                                    <button onclick="submitReview(this)">Submit Review</button>
+                                </div>    
+                            </div>
+                            <section id="contact-support">
+                                <h2>Contact & Support</h2>
+                                
+                                <div id="contact-form">
+                                    <h3>Contact Us</h3>
+                                    <form onsubmit="return submitContactForm();">
+                                        <label for="name">Name</label>
+                                        <input type="text" id="name" placeholder="Your Name" required>
+                                        
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" placeholder="Your Email" required>
+                                        
+                                        <label for="message">Message</label>
+                                        <textarea id="message" placeholder="Your Message" required></textarea>
+                                        
+                                        <button type="submit">Send Message</button>
+                                    </form>
+                                    <p id="contact-form-response"></p>
+                                </div>
+                            
+                                <div id="faq-section">
+                                    <h3>Frequently Asked Questions</h3>
+                                    <div class="faq-item">
+                                        <h4 onclick="toggleFAQ(this)">What is the return policy?</h4>
+                                        <p class="faq-answer">You can return any item within 30 days of purchase. Please keep the receipt.</p>
+                                    </div>
+                                    <div class="faq-item">
+                                        <h4 onclick="toggleFAQ(this)">How do I track my order?</h4>
+                                        <p class="faq-answer">After placing an order, you will receive an email with tracking details.</p>
+                                    </div>
+                                    <div class="faq-item">
+                                        <h4 onclick="toggleFAQ(this)">Do you offer international shipping?</h4>
+                                        <p class="faq-answer">Yes, we ship worldwide. Shipping charges may vary based on location.</p>
+                                    </div>
+                                    <!-- Add more FAQs as needed -->
+                                </div>
+                            </section>
+                            
+                            <!-- Live Chat Button -->
+                            <div id="live-chat-button" onclick="toggleChat()">💬 Live Chat</div>
+                            <div id="live-chat-box" style="display: none;">
+                                <div id="chat-header">
+                                    <span>Live Chat Support</span>
+                                    <button onclick="toggleChat()">✖</button>
+                                </div>
+                                <div id="chat-content">
+                                    <!-- Chat messages will go here -->
+                                </div>
+                                <input type="text" id="chat-input" placeholder="Type your message..." onkeypress="sendMessage(event)">
+                            </div>                           
+                            <section id="social-media">
+                                <h2>Connect with Us</h2>
+                                
+                                <!-- Social Media Share Buttons -->
+                                <div id="share-buttons">
+                                    <a href="#" onclick="shareOnFacebook()" class="share-button facebook">Share on Facebook</a>
+                                    <a href="#" onclick="shareOnTwitter()" class="share-button twitter">Share on Twitter</a>
+                                    <a href="#" onclick="shareOnInstagram()" class="share-button instagram">Share on Instagram</a>
+                                </div>
+                            
+                                <!-- Social Media Links -->
+                                <div id="social-links">
+                                    <a href="https://www.facebook.com" target="_blank">Follow us on Facebook</a>
+                                    <a href="https://www.twitter.com" target="_blank">Follow us on Twitter</a>
+                                    <a href="https://www.instagram.com" target="_blank">Follow us on Instagram</a>
+                                </div>
+                            
+                                <!-- Instagram Feed (example using embedded content) -->
+                                <div id="instagram-feed">
+                                    <h3>Instagram Feed</h3>
+                                    <iframe src="https://www.instagram.com/p/CN3EY1QHI-o/embed" frameborder="0" allowfullscreen></iframe>
+                                    <iframe src="https://www.instagram.com/p/CN3EY1QHI-o/embed" frameborder="0" allowfullscreen></iframe>
+                                    
+                                    <!-- Add more iframes as needed -->
+                                </div>
+                            </section>                             
+    </main>
+    <section id="parallax-section">
+        <div class="parallax-background"></div>
+        <div class="parallax-content">
+            <h2>Experience the Best Flavors</h2>
+            <p>At Delicious Bites, we believe in serving only the best. Join us for a culinary adventure like no other!</p>
+        </div>
+    </section>        
+    <section id="about">
+        <div class="content">
+            <h2>About Delicious Bites</h2>
+            <p>Welcome to Delicious Bites, your go-to place for the most scrumptious and delightful food experiences. Our mission is to bring joy to your taste buds with a wide variety of dishes, made with the freshest ingredients and love.</p>
+            <p>We started as a small food truck, and now we have grown into a beloved food shop that serves thousands of happy customers every day. Our team of passionate chefs and staff are dedicated to providing you with an unforgettable culinary experience.</p>
+        </div>
+    </section>
+
+    <section id="locations">
+        <div class="content">
+            <h2>Our Locations</h2>
+            <p>Delicious Bites is proud to serve in multiple locations across the country. Visit any of our outlets to enjoy your favorite meals in a cozy and welcoming environment.</p>
+
+            <div class="location-item">
+                <img src="https://media.istockphoto.com/id/1454217037/photo/statue-of-liberty-and-new-york-city-skyline-with-manhattan-financial-district-world-trade.jpg?s=612x612&w=0&k=20&c=6V54_qVlDfo59GLEdY2W8DOjLbbHTJ9y4AnJ58a3cis=" 
+                alt="New York">
+                <h3>New York</h3>
+                <p>1234 Main St, NewYork, NY 10001</p>
+            </div>
+
+            <div class="location-item">
+                <img src="https://media.istockphoto.com/id/1456420710/photo/los-angeles.jpg?s=612x612&w=0&k=20&c=Hhtkjtlzvx6vUIhb0-RvVY9h9tJ1ohqdQ1Pgm8LlDyI=" 
+                alt="Los Angeles">
+                <h3>Los Angeles</h3>
+                <p>5678 Sunset Blvd, Los Angeles, CA 90028</p>
+            </div>
+
+            <div class="location-item">
+                <img src="https://media.istockphoto.com/id/1358836854/photo/aerial-view-of-lincoln-park-neighbourhood-with-chicago-skyline.jpg?s=612x612&w=0&k=20&c=d3QbjrIG0-WfeNuYsA3hEo1UHU5rYmJ3_qG5oAsDL-k=" 
+                alt="Chicago">
+                <h3>Chicago</h3>
+                <p>9101 W Addison St, Chicago, IL 60613</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="more-food">
+        <div class="content">
+            <h2>More Delicious Foods</h2>
+            <p>Discover our extensive menu of over a thousand delicious dishes. Whether you're in the mood for something savory, sweet, or spicy, we've got something for everyone. Scroll down to explore our hidden treasures!</p>
+        </div>
+    </section>
+
+    <footer>
+        <section id="newsletter-subscription">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest updates and offers directly in your inbox.</p>
+            <form onsubmit="return subscribeToNewsletter();">
+                <input type="email" id="subscriber-email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+            <p id="subscription-response"></p>
+        </section>
+        
+        <p>&copy; 2024 Delicious Bites | All rights reserved</p>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>
